@@ -1,0 +1,26 @@
+# Start from golang base image
+FROM golang:1.14.4-alpine
+
+ENV GO11MODULE=on
+
+# Install git.
+# Git is required for fetching the dependencies.
+RUN apk update && apk add --no-cache git make gcc libc-dev protobuf-dev
+
+RUN go get github.com/golang/protobuf/protoc-gen-go
+
+RUN go get github.com/githubnemo/CompileDaemon
+
+# Set the current working directory inside the container
+WORKDIR /app
+
+# Copy go mod and sum files
+COPY go.mod go.sum ./
+
+# Download all dependencies. Dependencies will be cached if the go.mod and the go.sum files are not changed
+RUN go mod download
+
+# Copy the source from the current directory to the working Directory inside the container
+COPY . .
+
+ENTRYPOINT CompileDaemon -include=Makefile --build="make build" --command=./bin/server --color=true --log-prefix=false
