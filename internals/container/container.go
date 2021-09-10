@@ -11,6 +11,7 @@ import (
 
 	"lm-test/internals/config"
 
+	client "lm-test/internals/infrastructure/http_client"
 	server "lm-test/internals/infrastructure/http_server"
 
 	"go.uber.org/dig"
@@ -28,7 +29,12 @@ func (c *Container) Configure() error {
 		return err
 	}
 
+	// server
 	if err := c.container.Provide(server.NewHttpServer); err != nil {
+		return err
+	}
+	// client
+	if err := c.container.Provide(client.NewHttpClient); err != nil {
 		return err
 	}
 
@@ -37,6 +43,9 @@ func (c *Container) Configure() error {
 		return err
 	}
 	if err := c.container.Provide(controller.NewPingPongController); err != nil {
+		return err
+	}
+	if err := c.container.Provide(controller.NewCovidController); err != nil {
 		return err
 	}
 
@@ -49,9 +58,15 @@ func (c *Container) Configure() error {
 	if err := c.container.Provide(repository.NewRepository); err != nil {
 		return err
 	}
+	if err := c.container.Provide(repository.NewCovidRepository); err != nil {
+		return err
+	}
 
 	// service
 	if err := c.container.Provide(service.NewService); err != nil {
+		return err
+	}
+	if err := c.container.Provide(service.NewCovidService); err != nil {
 		return err
 	}
 

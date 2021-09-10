@@ -12,13 +12,7 @@ type Configuration struct {
 	Port int    `env:"PORT" envDefault:"3000"`
 	Env  string `env:"ENV" envDefault:"local"`
 
-	// DB
-	DbDriver   string `env:"DB_DRIVER" envDefault:"postgres"`
-	DbHost     string `env:"DB_HOST" envDefault:"127.0.0.1"`
-	DbPort     string `env:"DB_PORT" envDefault:"5432"`
-	DbUser     string `env:"DB_USER" envDefault:"postgres"`
-	DbName     string `env:"DB_NAME" envDefault:"account"`
-	DbPassword string `env:"DB_PASSWORD" envDefault:"postgres"`
+	CovidCaseURL string `env:"URL" envDefault:"http://static.wongnai.com/devinterview/covid-cases.json"`
 }
 
 // NewConfiguration ...

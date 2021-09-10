@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"lm-test/internals/config"
+	"lm-test/internals/controller"
 	"net/http"
 	"os"
 	"os/signal"
@@ -15,8 +16,9 @@ import (
 )
 
 type HttpServer struct {
-	Route  *gin.Engine
-	Config config.Configuration
+	Route     *gin.Engine
+	Config    config.Configuration
+	CovidCtrl *controller.CovidController
 }
 
 func (h *HttpServer) Configuration() *gin.Engine {
@@ -25,6 +27,8 @@ func (h *HttpServer) Configuration() *gin.Engine {
 	r.GET("/healthz", func(c *gin.Context) {
 		c.String(200, "OK")
 	})
+
+	r.GET("/covid/summary", h.CovidCtrl.Summary)
 
 	return r
 }
@@ -58,11 +62,12 @@ func (h *HttpServer) Start() {
 	fmt.Println("Server exiting")
 }
 
-func NewHttpServer(config config.Configuration) *HttpServer {
+func NewHttpServer(config config.Configuration, covid *controller.CovidController) *HttpServer {
 	r := gin.New()
 
 	return &HttpServer{
-		Config: config,
-		Route:  r,
+		Config:    config,
+		Route:     r,
+		CovidCtrl: covid,
 	}
 }
