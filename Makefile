@@ -23,6 +23,10 @@ pbgen:
 stringer:
 	stringer -type ErrorCode internals/constants/error_code.go
 
+.PHONY: test
+test:
+	go test ./...
+
 .PHONY: help
 all: help
 help: Makefile
