@@ -22,4 +22,4 @@ $ docker-compose up --build
 
 ## Path and schema
 
-[Document Link](https://github.com/mamochiro/lineman-test/tree/main/doc/swagger.yaml)
+[Document Link](https://mamochiro.github.io/lineman-test/)
