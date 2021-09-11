@@ -14,5 +14,5 @@ jobs:
       - run: go version
       - name: Install go lint
         run: go get -u golang.org/x/lint/golint
-      - name: Test
+      - name: test
         run: go test ./...

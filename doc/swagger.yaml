@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Line man test
+  version: 0.1.0
+
+servers:
+  - url: http://localhost:3000/
+
+tags:
+  - name: General
+  - name: Covid
+
+paths:
+  /healthz:
+    get:
+      tags:
+        - General
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: OK
+
+  /covid/summary:
+    get:
+      tags:
+        - Covid
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Provice:
+                    $ref: "#/components/schemas/Province"
+                  AgeGroup:
+                    $ref: "#/components/schemas/AgeGroup"
+
+
+
+components:
+  schemas:
+    Province:
+      type: object
+      properties:
+        Bangkok:
+          type: integer
+          example: 20
+        Buriram:
+          type: integer
+          example: 10
+    AgeGroup:
+      type: object
+      properties:
+        0-30:
+          type: integer
+          example: 100
+        31-60:
+          type: integer
+          example: 43
+        61+:
+          type: integer
+          example: 211
+        N/A:
+          type: integer
+          example: 299

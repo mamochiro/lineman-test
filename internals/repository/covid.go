@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"encoding/json"
-	"go.uber.org/dig"
 	"io/ioutil"
 	"lm-test/internals/config"
 	"lm-test/internals/entity"
@@ -16,7 +15,6 @@ type CovidRepositoryInterface interface {
 }
 
 type CovidRepository struct {
-	dig.In
 	client *client.HttpClient
 	config config.Configuration
 }
