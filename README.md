@@ -16,6 +16,11 @@ start with docker file
 $ docker-compose up --build
 ```
 
+### Test
+```bash
+$ make test
+```
+
 ## server
 
 [`http://localhost:3000/`](http://localhost:3000/covid/summary)
